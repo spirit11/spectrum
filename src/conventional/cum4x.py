@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-from __future__ import division
+
 import numpy as np
 from scipy.linalg import hankel
 import scipy.io as sio
 import matplotlib.pyplot as plt
 
 from ..tools import *
-from cum2x import *
+from .cum2x import *
 
 
 def cum4x(w, x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
@@ -80,8 +80,8 @@ def cum4x(w, x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
   rind = np.arange(-maxlag, maxlag+1)
   ind = np.arange(nsamp)
 
-  print nrecs
-  for i in xrange(nrecs):
+  print(nrecs)
+  for i in range(int(nrecs)):
     tmp = y_cum * 0
     R_zy   = 0
     R_wy = 0
@@ -123,13 +123,13 @@ def cum4x(w, x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
       R_zy = R_zy + np.dot(zs[-k1+k2:nsamp].T, ys[0:nsamp-k2+k1])
 
     tmp[zlag] = tmp[zlag] + np.dot(ziv.T, xs)
-    for k in xrange(1, maxlag+1):
+    for k in range(1, maxlag+1):
       tmp[zlag-k] = tmp[zlag-k] + np.dot(ziv[k:nsamp].T, xs[0:nsamp-k])
       tmp[zlag+k] = tmp[zlag+k] + np.dot(ziv[0:nsamp-k].T, xs[k:nsamp])
 
-    print y_cum.shape
+    print(y_cum.shape)
     y_cum = y_cum + tmp * scale # fourth-order moment estimates done
-    print y_cum.shape
+    print(y_cum.shape)
 
     R_wx = cum2x(ws,      xs, maxlag,         nsamp, overlap0, flag)
     R_zx = cum2x(zs,      xs, maxlag+abs(k2), nsamp, overlap0, flag)
@@ -154,8 +154,8 @@ def test():
   # The right results are:
   #           "biased": [-0.52343  -0.43057   1.16651   3.21583   1.98088  -0.38022  -1.05836]
   #           "unbiased": [-0.53962  -0.43936   1.17829   3.21583   2.00089  -0.38798  -1.09109]
-  print cum4x(y, y, y, y, 3, 100, 0, "biased")
-  print cum4x(y, y, y, y, 3, 100, 0, "unbiased")
+  print(cum4x(y, y, y, y, 3, 100, 0, "biased"))
+  print(cum4x(y, y, y, y, 3, 100, 0, "unbiased"))
 
 
 if __name__ == '__main__':

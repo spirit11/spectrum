@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from __future__ import division
+
 import numpy as np
 from scipy.linalg import hankel
 import scipy.io as sio
@@ -43,12 +43,12 @@ def cum3est(y, maxlag, nsamp, overlap, flag, k1):
     scale = np.ones([nlags, 1])/nsamp
   else:
     lsamp = nsamp - abs(k1)
-    scale = make_arr((range(lsamp-maxlag, lsamp+1), range(lsamp-1, lsamp-maxlag-1, -1)), axis=1).T
+    scale = make_arr((list(range(lsamp-maxlag, lsamp+1)), list(range(lsamp-1, lsamp-maxlag-1, -1))), axis=1).T
     (m2,n2) = scale.shape
     scale = np.ones([m2,n2]) / scale
 
   y = y.ravel(order='F')
-  for i in xrange(nrecord):
+  for i in range(int(nrecord)):
     x = y[ind]
     x = x - np.mean(x)
     cx = np.conj(x)
@@ -64,7 +64,7 @@ def cum3est(y, maxlag, nsamp, overlap, flag, k1):
     # compute third-order cumulants
     y_cum[zlag] = y_cum[zlag] + np.dot(z.T, x)
 
-    for k in xrange(1,maxlag+1):
+    for k in range(1,maxlag+1):
       y_cum[zlag-k] = y_cum[zlag-k] + np.dot(z[k:nsamp].T, x[0:nsamp-k])
       y_cum[zlag+k] = y_cum[zlag+k] + np.dot(z[0:nsamp-k].T, x[k:nsamp])
 

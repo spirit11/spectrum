@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from __future__ import division
+
 import numpy as np
 from scipy.linalg import hankel
 import scipy.io as sio
@@ -36,11 +36,11 @@ def cum2est(y, maxlag, nsamp, overlap, flag):
   ind = np.arange(nsamp)
   y = y.ravel(order='F')
 
-  for i in xrange(nrecord):
+  for i in range(int(nrecord)):
     x = y[ind]
     x = x - np.mean(x)
 
-    for k in xrange(maxlag+1):
+    for k in range(maxlag+1):
       y_cum[k] = y_cum[k] + np.dot(x[0:nsamp-k].T, x[k:nsamp])
 
     ind = ind + int(nadvance)
@@ -48,7 +48,7 @@ def cum2est(y, maxlag, nsamp, overlap, flag):
   if flag == 'biased':
     y_cum = y_cum / (nsamp * nrecord)
   else:
-    y_cum = y_cum / (nrecord * (nsamp-np.matrix(range(maxlag+1)).T))
+    y_cum = y_cum / (nrecord * (nsamp-np.matrix(list(range(maxlag+1))).T))
     y_cum = np.asarray(y_cum)
 
   if maxlag > 0:
