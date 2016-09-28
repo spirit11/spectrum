@@ -68,7 +68,7 @@ def bispectrumi(y, nlag=None, nsamp=None, overlap=None,
   nrecord  = np.fix((ly*nrecs - overlap) / nadvance)
 
   c3 = np.zeros([nlag+1,nlag+1])
-  ind = np.arange(nsamp)
+  ind = np.arange(nsamp, dtype=int)
   y = y.ravel(order='F')
 
   s = 0
@@ -112,7 +112,7 @@ def bispectrumi(y, nlag=None, nsamp=None, overlap=None,
   # apply lag-domain window
   wcmat = cmat
   if wind != -1:
-    indx = np.arange(-1*nlag, nlag+1).T
+    indx = np.arange(-1*nlag, nlag+1, dtype=int).T
     window = window.reshape(-1,1)
     for k in range(-nlag, nlag+1):
       wcmat[:, k+nlag] = (cmat[:, k+nlag].reshape(-1,1) * \

@@ -36,7 +36,7 @@ def cum3est(y, maxlag, nsamp, overlap, flag, k1):
 
   y_cum = np.zeros([maxlag-minlag+1,1])
 
-  ind = np.arange(nsamp).T
+  ind = np.arange(nsamp, dtype=int).T
   nlags = 2*maxlag + 1
   zlag = maxlag
   if flag == 'biased':

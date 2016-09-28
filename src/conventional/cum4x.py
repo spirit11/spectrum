@@ -65,7 +65,7 @@ def cum4x(w, x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
     sc2 = sc1
     sc12 = sc1
   else:
-    ind   = np.arange(-maxlag, maxlag+1).T
+    ind   = np.arange(-maxlag, maxlag+1, dtype=int).T
     kmin  = min(0,min(k1,k2))
     kmax  = max(0,max(k1,k2))
     scale = nsamp - np.maximum(ind,kmax) + np.minimum(ind,kmin)
@@ -77,8 +77,8 @@ def cum4x(w, x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
 
   # estimate second- and fourth-order moments combine
   y_cum  = np.zeros([2*maxlag+1, 1])
-  rind = np.arange(-maxlag, maxlag+1)
-  ind = np.arange(nsamp)
+  rind = np.arange(-maxlag, maxlag+1, dtype=int)
+  ind = np.arange(nsamp, dtype=int)
 
   print(nrecs)
   for i in range(int(nrecs)):

@@ -63,13 +63,13 @@ def cum3x(x, y, z, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0):
 
 
   if k1 >= 0:
-    indx = np.arange(nsamp-k1).T
-    indz = np.arange(k1, nsamp).T
+    indx = np.arange(nsamp-k1, dtype=int).T
+    indz = np.arange(k1, nsamp, dtype=int).T
   else:
-    indx = np.arange(-k1, nsamp).T
-    indz = np.arange(nsamp+k1)
+    indx = np.arange(-k1, nsamp, dtype=int).T
+    indz = np.arange(nsamp+k1, dtype=int)
 
-  ind = np.arange(nsamp)
+  ind = np.arange(nsamp, dtype=int)
 
   for k in range(int(nrecs)):
     xs = x[ind]

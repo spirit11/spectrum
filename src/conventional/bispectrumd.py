@@ -127,7 +127,7 @@ def bispectrumd(y, nfft=None, wind=None, nsamp=None, overlap=None):
   # accumulate triple products
   Bspec = np.zeros([nfft, nfft]) # the hankel mask (faster)
   mask = hankel(np.arange(nfft),np.array([nfft-1]+list(range(nfft-1))))
-  locseg = np.arange(nsamp).transpose()
+  locseg = np.arange(nsamp, dtype=int).transpose()
   y = y.ravel(order='F')
 
   for krec in range(int(nrecs)):

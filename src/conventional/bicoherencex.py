@@ -86,7 +86,7 @@ def bicoherencex(w, x, y, nfft=None, wind=None, nsamp=None, overlap=None):
 
   mask = hankel(np.arange(nfft),np.array([nfft-1]+list(range(nfft-1))))
   Yf12 = np.zeros([nfft,nfft])
-  ind  = np.transpose(np.arange(nsamp))
+  ind  = np.transpose(np.arange(nsamp, dtype=int))
   w = w.ravel(order='F')
   x = x.ravel(order='F')
   y = y.ravel(order='F')

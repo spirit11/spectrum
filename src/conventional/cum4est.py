@@ -47,7 +47,7 @@ def cum4est(y, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
   if flag == 'biased':
     scale = np.ones([nlags,1])/nsamp
   else:
-    ind = np.arange(-maxlag, maxlag+1).T
+    ind = np.arange(-maxlag, maxlag+1, dtype=int).T
     kmin = min(0, min(k1, k2))
     kmax  = max(0,max(k1, k2))
     scale = nsamp - np.maximum(ind, kmax) + np.minimum(ind, kmin)
@@ -67,7 +67,7 @@ def cum4est(y, maxlag=0, nsamp=0, overlap=0, flag='biased', k1=0, k2=0):
   y_cum  = np.zeros([2*maxlag+1, 1])
   R_yy   = np.zeros([2*mlag+1, 1])
 
-  ind = np.arange(nsamp)
+  ind = np.arange(nsamp, dtype=int)
   for i in range(int(nrecord)):
     tmp = np.zeros([2*maxlag+1, 1])
     x = y[ind]
