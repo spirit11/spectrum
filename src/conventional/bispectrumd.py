@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from ..tools import *
 
 
-def bispectrumd(y, nfft=None, wind=None, nsamp=None, overlap=None):
+def bispectrumd(y, nfft=None, wind=None, nsamp=None, overlap=None, plot=True):
   """
   Parameters:
     y    - data vector or time-series
@@ -153,13 +153,14 @@ def bispectrumd(y, nfft=None, wind=None, nsamp=None, overlap=None):
   else:
     waxis = np.transpose(np.arange(-1*(nfft-1)/2, (nfft-1)/2+1)) / nfft
 
-  # cont1 = plt.contour(abs(Bspec), 4, waxis, waxis)
-  cont = plt.contourf(waxis, waxis, abs(Bspec), 100, cmap=plt.cm.Spectral_r)
-  plt.colorbar(cont)
-  plt.title('Bispectrum estimated via the direct (FFT) method')
-  plt.xlabel('f1')
-  plt.ylabel('f2')
-  plt.show()
+  # cont1 = plt.contur(abs(Bspec), 4, waxis, waxis)
+  if plot:
+    cont = plt.contourf(waxis, waxis, abs(Bspec), 100, cmap=plt.cm.Spectral_r)
+    plt.colorbar(cont)
+    plt.title('Bispectrum estimated via the direct (FFT) method')
+    plt.xlabel('f1')
+    plt.ylabel('f2')
+    plt.show()
 
   return (Bspec, waxis)
 
